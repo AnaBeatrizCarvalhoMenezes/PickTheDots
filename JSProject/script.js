@@ -1,15 +1,15 @@
 const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d'); //A renderização é em 2d, fornecendo métodos e propriedades próprias de um espaço 2d
 
 const rectWidth = 50;
 const rectHeight = 20;
 const ballSize = 15;
 
-let rectX = (canvas.width - rectWidth) / 2;
+let rectX = (canvas.width - rectWidth) / 2; // Mantém o espaço do canva fixo, diminuindo sempre a largura do retângulo
 let rectY = canvas.height - rectHeight - 10; // Mantém Y fixo
 let rectSpeed = 5;
 
-let balls = [];
+let balls = []; // array vazio
 let ballSpeed = 2;
 let score = 0;
 
@@ -18,7 +18,7 @@ let offsetX; // Armazenar o deslocamento do clique
 
 // Função para desenhar o retângulo
 function drawRect() {
-    ctx.fillStyle = 'black'; // Corrigido
+    ctx.fillStyle = 'black';
     ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
 }
 
@@ -41,7 +41,7 @@ function updateBalls() {
     // Remove as bolas que caem fora do canvas
     balls = balls.filter(ball => ball.y < canvas.height);
 
-    // Verifica colisão e remove a bola corretamente sem causar bugs
+    // Verifica colisão e remove a bola
     for (let i = balls.length - 1; i >= 0; i--) {
         const ball = balls[i];
         if (ball.y + ballSize > rectY &&
@@ -49,6 +49,8 @@ function updateBalls() {
             ball.x < rectX + rectWidth) {
             score++;
             balls.splice(i, 1); // Remove a bola em colisão
+            //i: É o índice do array onde a remoção deve começar.
+            // 1: É o número de elementos a serem removidos a partir do índice i.
         }
     }
 }
@@ -96,6 +98,8 @@ function update() {
 // Função para detectar se o mouse clicou no quadrado azul
 canvas.addEventListener('mousedown', (event) => {
     const mouseX = event.offsetX;
+    //A palavra-chave const declara uma variável mouseX que é inicializada com o valor de event.offsetX.
+    // const indica que a variável não deve ser reatribuída após a inicialização, o que é adequado se você não precisar modificar o valor de mouseX após sua definição.
     const mouseY = event.offsetY;
     
     // Verifica se o clique foi dentro do quadrado azul
